@@ -11,13 +11,13 @@ public class Boat : MonoBehaviour
     private Rigidbody2D rb2d;
     private Vector2 movement;
 
-    [SerializeField] private float moveSpeed;
+    private float moveSpeed;
     [SerializeField] private float rotationSpeed;
     private float rotationAngle;
     [Range(0,1)] public float driftFactor;
     public float dragFactor = 3;
-    public float maxSpeed = 5;
-    public int damage = 1;
+    private float maxSpeed = 5;
+    [HideInInspector] public int damage;
 
     internal LifeManager lifeManager;
 
@@ -34,8 +34,11 @@ public class Boat : MonoBehaviour
         lifeManager = GetComponent<LifeManager>();
         instance = this;
         rb2d = GetComponent<Rigidbody2D>();
-        
-        
+
+        maxSpeed = lifeManager.characterLifeData.moveSpeed;
+        moveSpeed = lifeManager.characterLifeData.moveSpeed;
+        damage = lifeManager.characterLifeData.damage;
+
     }
 
     private void Start()

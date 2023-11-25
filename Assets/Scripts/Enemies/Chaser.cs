@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Chaser : Enemy
 { 
-    public float speed;
-    public int damage;
+    private float speed;
+    [HideInInspector] public int damage;
 
     [SerializeField] private Transform scope;
 
@@ -20,6 +20,9 @@ public class Chaser : Enemy
         base.Start();
         target = FindObjectOfType<Boat>().transform;
         boatrb = GetComponent<Rigidbody2D>();
+
+        speed = lifeManager.characterLifeData.moveSpeed;
+        damage = lifeManager.characterLifeData.damage;
     }
 
 

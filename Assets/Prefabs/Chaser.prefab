@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterLifeData: {fileID: 11400000, guid: c49453b6a6352ec48b17f9100199bab0, type: 2}
+  fullLife: 3
   boatSprite: {fileID: 553029506350159603}
   boats:
   - {fileID: 21300000, guid: 27f87f5c72015ec4ebe0307657532430, type: 3}

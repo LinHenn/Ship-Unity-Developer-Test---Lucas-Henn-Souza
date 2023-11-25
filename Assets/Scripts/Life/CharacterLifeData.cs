@@ -12,4 +12,8 @@ public class CharacterLifeData : ScriptableObject
     [Tooltip("Make character invulnerable during an amout of time")]
     public bool invulneraleOnDamage = true;
 
+    public float moveSpeed;
+
+    public int damage;
+
 }

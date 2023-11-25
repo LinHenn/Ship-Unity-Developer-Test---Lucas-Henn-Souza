@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Shooter : Enemy
 {
-    public float speed;
-    public int damage = 1;
+    private float speed;
+    [HideInInspector] public int damage;
 
     [SerializeField] private Transform scope;
 
@@ -25,6 +25,9 @@ public class Shooter : Enemy
         base.Start();
         target = FindObjectOfType<Boat>().transform;
         boatrb = GetComponent<Rigidbody2D>();
+
+        speed = lifeManager.characterLifeData.moveSpeed;
+        damage = lifeManager.characterLifeData.damage;
     }
 
 
@@ -56,7 +59,6 @@ public class Shooter : Enemy
     {
         if (mayFire)
         {
-            //Instantiate(projectilPrefab, firePoint.position, firePoint.rotation);
             var projectile = projectileControl.instance.setProjectile();
             if (projectile == null) { mayFire = false; return; }
 

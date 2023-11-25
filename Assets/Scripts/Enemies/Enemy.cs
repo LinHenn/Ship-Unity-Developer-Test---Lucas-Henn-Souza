@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     public Transform explosionPosition;
     internal LifeManager lifeManager;
 
+    private bool isdead;
+
 
     private void Awake()
     {
@@ -19,21 +21,25 @@ public class Enemy : MonoBehaviour
         lifeManager.onDie += HandleDie;
     }
 
+    private void OnEnable()
+    {
+        isdead = false;
+    }
+
     private void HandleDie()
     {
         GameController.GM.plusPoints();
+
+        if (isdead) return;
         StartCoroutine(timerDead());
-        //gameObject.SetActive(false);
-        //Destroy(gameObject, 1f);
 
     }
 
     IEnumerator timerDead()
     {
-        //Debug.Log(gameObject.name);
+        isdead = true;
         yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
-        //StopCoroutine(timerDead());
     }
 
 }

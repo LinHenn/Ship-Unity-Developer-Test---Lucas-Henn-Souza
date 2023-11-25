@@ -868,11 +868,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29888ddb5db10914a926523bc3af40ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
   rotationSpeed: 2
   driftFactor: 0.604
   dragFactor: 3
-  maxSpeed: 5
   damage: 1
 --- !u!61 &187921664
 BoxCollider2D:
@@ -1012,16 +1010,8 @@ MonoBehaviour:
   boats:
   - {fileID: 21300000, guid: 888646988e87c4949918c3b43ebaddcc, type: 3}
   - {fileID: 21300000, guid: bc94109c05c31054b83e3522b29c9498, type: 3}
-  - {fileID: 21300000, guid: bc94109c05c31054b83e3522b29c9498, type: 3}
-  - {fileID: 21300000, guid: bc94109c05c31054b83e3522b29c9498, type: 3}
-  - {fileID: 21300000, guid: 8bccf1d3537891c4b892e80b7bacb1a1, type: 3}
-  - {fileID: 21300000, guid: 8bccf1d3537891c4b892e80b7bacb1a1, type: 3}
   - {fileID: 21300000, guid: 8bccf1d3537891c4b892e80b7bacb1a1, type: 3}
   - {fileID: 21300000, guid: 9d30dea17b54c0e4fa58c942759eee1c, type: 3}
-  - {fileID: 21300000, guid: 9d30dea17b54c0e4fa58c942759eee1c, type: 3}
-  - {fileID: 21300000, guid: 9d30dea17b54c0e4fa58c942759eee1c, type: 3}
-  - {fileID: 21300000, guid: 9d30dea17b54c0e4fa58c942759eee1c, type: 3}
-  barLife: {fileID: 1770928080180508865, guid: 2a72f09a995ca564386d44c139d94716, type: 3}
 --- !u!114 &191685203 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1770928080180508865, guid: 2a72f09a995ca564386d44c139d94716, type: 3}
@@ -3875,7 +3865,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.5439, y: -28.1711}
+  m_AnchoredPosition: {x: 6.5438995, y: -28.171097}
   m_SizeDelta: {x: 268.3019, y: 158.8643}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &878810392
@@ -5582,7 +5572,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -6833,6 +6823,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 83183142663621155, guid: 77e5a8568a4a7fd4b8829065ad183b53, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 426922948960157360, guid: 77e5a8568a4a7fd4b8829065ad183b53, type: 3}
+      propertyPath: speed
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -11758,10 +11752,10 @@ RectTransform:
   m_Father: {fileID: 1466795050}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -382.6, y: 0.2637}
-  m_SizeDelta: {x: 20, y: 378.1273}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 30, y: 0}
+  m_SizeDelta: {x: 20, y: 380}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1898397892
 MonoBehaviour:

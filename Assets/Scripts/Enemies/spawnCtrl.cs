@@ -14,10 +14,8 @@ public class spawnCtrl : MonoBehaviour
             if (!boat.activeSelf)
             {
                 Vector2 randomPos = new Vector2(Random.Range(-18f, 18), Random.Range(-13, 15));
-                //boat.GetComponent<LifeManager>().resetBoat();
                 boat.GetComponent<LifeManager>().OnGame();
                 boat.transform.position = randomPos;
-                //boat.SetActive(true);
                 break;
             }
         }
