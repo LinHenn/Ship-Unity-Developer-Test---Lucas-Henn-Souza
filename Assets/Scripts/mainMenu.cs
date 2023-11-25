@@ -9,26 +9,35 @@ public class mainMenu : MonoBehaviour
 {
     public static float SessionTime, SpawnTime;
 
-    public TextMeshProUGUI sessionTimetext;
-    public TextMeshProUGUI spawnTimetext;
+    [SerializeField] private TextMeshProUGUI sessionTimetext;
+    [SerializeField] private TextMeshProUGUI spawnTimetext;
+    [SerializeField] GameObject panelConfig;
 
+    private void Start()
+    {
+        panelConfig.SetActive(false);
+
+        SessionTime = 60;
+        SpawnTime = 1;
+
+    }
 
     public void Playgame()
     {
-        //Time.timeScale = 1;
         SceneManager.LoadScene("GameScene");
     }
 
     public void setSession(float time)
     {
-        sessionTimetext.text = time.ToString();
+        time = Mathf.RoundToInt(time);
+        sessionTimetext.text = time.ToString() + " seconds";
         SessionTime = time;
-
     }
 
     public void setSpawn(float time)
     {
-        spawnTimetext.text = time.ToString();
+        time = Mathf.RoundToInt(time);
+        spawnTimetext.text = time.ToString() + " seconds";
         SpawnTime = time;
     }
 }

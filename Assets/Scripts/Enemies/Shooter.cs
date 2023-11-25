@@ -2,24 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shooter : MonoBehaviour
+public class Shooter : Enemy
 {
     public float speed;
-    public Transform scope;
+    public int damage = 1;
+
+    [SerializeField] private Transform scope;
 
     private Transform target;
     private Rigidbody2D boatrb;
 
     private bool mayFire;
 
-    public GameObject projectilPrefab;
-    public Transform firePoint;
+    [SerializeField] private GameObject projectilPrefab;
+    [SerializeField] private Transform firePoint;
     public float cadence;
     private float shooterCounter;
 
     
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         target = FindObjectOfType<Boat>().transform;
         boatrb = GetComponent<Rigidbody2D>();
     }
@@ -27,6 +30,7 @@ public class Shooter : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (lifeManager.Life <= 0) return;
 
         Vector2 direction = new Vector2(target.position.x - transform.position.x, target.position.y - transform.position.y);
 
@@ -53,7 +57,10 @@ public class Shooter : MonoBehaviour
         if (mayFire)
         {
             //Instantiate(projectilPrefab, firePoint.position, firePoint.rotation);
-            var projectile = projectileControl.PC.setProjectile();
+            var projectile = projectileControl.instance.setProjectile();
+            if (projectile == null) { mayFire = false; return; }
+
+            projectile.GetComponent<projectil>().damage = damage;
             projectile.transform.position = firePoint.position;
             projectile.transform.rotation = firePoint.rotation;
             projectile.SetActive(true);

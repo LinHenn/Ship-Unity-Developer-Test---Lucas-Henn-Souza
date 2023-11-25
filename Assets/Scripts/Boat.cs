@@ -6,43 +6,65 @@ using TMPro;
 
 public class Boat : MonoBehaviour
 {
-    public static Boat boat;    
+    public static Boat instance;    
 
     private Rigidbody2D rb2d;
     private Vector2 movement;
 
-    public float moveSpeed;
-    public float rotationSpeed;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float rotationSpeed;
     private float rotationAngle;
     [Range(0,1)] public float driftFactor;
     public float dragFactor = 3;
     public float maxSpeed = 5;
-    [SerializeField] internal LifeManager lifeManager;
+    public int damage = 1;
+
+    internal LifeManager lifeManager;
 
     public event Action willFire;
 
+
+    private float cadence = 0.5f;
+    private float shooterCounter = 0;
+    private bool mayFire;
+
+
     private void Awake()
     {
-        boat = this;
+        lifeManager = GetComponent<LifeManager>();
+        instance = this;
+        rb2d = GetComponent<Rigidbody2D>();
+        
+        
+    }
+
+    private void Start()
+    {
         lifeManager.onDie += HandleDie;
     }
 
 
-    void Start()
-    {
-        rb2d = GetComponent<Rigidbody2D>();
-        
-    }
-
-    
     void Update()
     {
         movement.y = Input.GetAxis("Vertical");
         movement.x = Input.GetAxis("Horizontal");
 
-        if (Input.GetKey(KeyCode.Space)) willFire.Invoke();
 
-        if (lifeManager.Life <= 0) GameController.GM.isFinished();
+
+
+        if (Input.GetButtonDown("Fire1") && mayFire) { willFire.Invoke(); mayFire = false; }
+
+        //
+        if (!mayFire)
+        {
+            shooterCounter -= Time.deltaTime;
+            if (shooterCounter <= 0)
+            {
+                shooterCounter = cadence;
+                mayFire = true;
+            }
+        }
+        //
     }
 
     private void FixedUpdate()
@@ -54,7 +76,7 @@ public class Boat : MonoBehaviour
 
     void HandleDie()
     {
-        Debug.Log("Morri");
+        Debug.Log("You Are Dead");
     }
 
     void ApplySpeed()

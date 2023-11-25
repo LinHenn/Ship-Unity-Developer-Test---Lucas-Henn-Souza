@@ -6,9 +6,15 @@ public class Enemy : MonoBehaviour
 {
     public GameObject explosionEffect;
     public Transform explosionPosition;
-    [SerializeField] internal LifeManager lifeManager;
+    internal LifeManager lifeManager;
+
 
     private void Awake()
+    {
+        lifeManager = GetComponent<LifeManager>();
+    }
+
+    protected virtual void Start()
     {
         lifeManager.onDie += HandleDie;
     }
@@ -16,15 +22,18 @@ public class Enemy : MonoBehaviour
     private void HandleDie()
     {
         GameController.GM.plusPoints();
-        Destroy(transform.parent.gameObject, 1f);
-        
+        StartCoroutine(timerDead());
+        //gameObject.SetActive(false);
+        //Destroy(gameObject, 1f);
+
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    IEnumerator timerDead()
     {
-        if(collision.TryGetComponent<Boat>(out var boat))
-        {
-            Instantiate(explosionEffect, explosionPosition.position, transform.rotation);
-        }
+        //Debug.Log(gameObject.name);
+        yield return new WaitForSeconds(1f);
+        gameObject.SetActive(false);
+        //StopCoroutine(timerDead());
     }
+
 }

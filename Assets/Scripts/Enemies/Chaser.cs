@@ -2,21 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chaser : MonoBehaviour
-{
+public class Chaser : Enemy
+{ 
     public float speed;
-    public Transform scope;
+    public int damage;
+
+    [SerializeField] private Transform scope;
 
     public BoxCollider2D box;
 
     private Transform target;
     private Rigidbody2D boatrb;
+
     
-
-
-
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         target = FindObjectOfType<Boat>().transform;
         boatrb = GetComponent<Rigidbody2D>();
     }
@@ -24,11 +25,11 @@ public class Chaser : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (lifeManager.Life <= 0) return;
 
         Vector2 direction = new Vector2(target.position.x - transform.position.x, target.position.y - transform.position.y);
 
         transform.up = direction;
-
 
         RaycastHit2D hit = Physics2D.Raycast(scope.position, direction);
         Debug.DrawRay(scope.position, direction, Color.red);
@@ -36,20 +37,14 @@ public class Chaser : MonoBehaviour
         if (hit.transform == target) boatrb.velocity = direction * speed;
     }
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<Boat>(out var boat))
         {
-            Debug.Log("encostei");
-            boat.lifeManager.TakeDamage(2);
-            Destroy(gameObject);
+            boat.lifeManager.TakeDamage(damage);
+            GetComponent<LifeManager>().TakeDamage(3);
         }
 
     }
-
-
-
-
-
-
 }

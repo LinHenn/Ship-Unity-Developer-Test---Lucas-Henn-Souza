@@ -45,9 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9186ee385f46214e964a4c6e05af054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeManager: {fileID: 0}
+  lifeManager: {fileID: 2193735776313642212, guid: 77e5a8568a4a7fd4b8829065ad183b53, type: 3}
   barTransform: {fileID: 6630965253484466217}
   root: {fileID: 9138730224553901205}
+  boatPosition: {fileID: 83183142663621154, guid: 77e5a8568a4a7fd4b8829065ad183b53, type: 3}
 --- !u!1 &1881680968553973917
 GameObject:
   m_ObjectHideFlags: 0

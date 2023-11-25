@@ -5,17 +5,23 @@ using System;
 using TMPro;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     public static GameController GM;
-    public GameObject pauseMenu;
-    public TextMeshProUGUI pauseScore;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] public TextMeshProUGUI pauseText;
+    [SerializeField] public TextMeshProUGUI pauseScore;
+
+    [SerializeField] private Slider timeSlider;
 
     [SerializeField] private TextMeshProUGUI Score;
-    private int Points;
 
-    public GameObject[] Enemies;
+    public spawnCtrl[] Enemies;
+    private bool youWin;
+
+    private int Points;
 
     public int points
     {
@@ -37,23 +43,29 @@ public class GameController : MonoBehaviour
 
 
 
-
+    private void Awake()
+    {
+        GM = this;
+        onPlay = true;
+    }
 
     private void Start()
     {
-
-        GM = this;
+        
         points = 0;
-
-        onPlay = true;
 
         sessionTime = mainMenu.SessionTime;
         spawnTime = mainMenu.SpawnTime;
+        
+
+        if (sessionTime == 0) sessionTime = 60;
+        if (spawnTime == 0) spawnTime = 1;
+
+        timeSlider.maxValue = sessionTime;
 
         spawnCount = spawnTime;
 
-        Debug.Log(sessionTime + " : " + spawnTime);
-        
+        Boat.instance.GetComponent<LifeManager>().onDie += isFinished;
     }
 
     private void Update()
@@ -68,8 +80,10 @@ public class GameController : MonoBehaviour
         }
         
         sessionCount += Time.deltaTime;
+        setTimer();
         if(sessionCount >= sessionTime)
         {
+            youWin = true;
             isFinished();
         }
     }
@@ -79,11 +93,13 @@ public class GameController : MonoBehaviour
     {
         if (!onPlay) return;
 
-        var enemy = Enemies[Random.Range(0, 2)];
+        var enemy = Enemies[Random.Range(0, Enemies.Length)];
+        enemy.newBoat();
+    }
 
-        Vector2 posicaoAleatoria = new Vector2(Random.Range(-18f, 18), Random.Range(-13, 15));
-        Instantiate(enemy, posicaoAleatoria, Quaternion.identity);
-
+    private void setTimer()
+    {
+        timeSlider.value = sessionCount;
     }
 
     public void plusPoints()
@@ -93,16 +109,18 @@ public class GameController : MonoBehaviour
 
     public void isFinished()
     {
-        pauseScore.text = Points.ToString();
+        if(youWin) pauseText.text = "You Win!";
+        else pauseText.text = "You Lose!";
+
+        pauseScore.text = "Score: " +points.ToString();
+
         pauseMenu.SetActive(true);
         onPlay = false;
-        //Time.timeScale = 0;
     }
 
     public void Playgame()
     {
         onPlay = true;
-        //Time.timeScale = 1;
         SceneManager.LoadScene("GameScene");
     }
 

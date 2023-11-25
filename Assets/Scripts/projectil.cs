@@ -5,6 +5,7 @@ using UnityEngine;
 public class projectil : MonoBehaviour
 {
     public float speed = 8;
+    public int damage;
 
     public GameObject explosionEffect;
 
@@ -19,21 +20,28 @@ public class projectil : MonoBehaviour
     {
         if(collision.TryGetComponent<Enemy>(out var enemy))
         {
-            enemy.lifeManager.TakeDamage(1);
+            enemy.lifeManager.TakeDamage(damage);
         }
+
 
         if (collision.TryGetComponent<Boat>(out var boat))
         {
-            boat.lifeManager.TakeDamage(1);
+            boat.lifeManager.TakeDamage(damage);
         }
+
+
+
+
+
         Instantiate(explosionEffect, transform.position, transform.rotation);
         //Destroy(gameObject);
         gameObject.SetActive(false);
     }
 
-
+    /*
     private void OnBecameInvisible()
     {
         gameObject.SetActive(false);
     }
+    */
 }

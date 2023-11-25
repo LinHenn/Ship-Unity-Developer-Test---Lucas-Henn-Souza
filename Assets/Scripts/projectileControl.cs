@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class projectileControl : MonoBehaviour
 {
-    public static projectileControl PC;
+    public static projectileControl instance;
     public List<GameObject> projectiles;
 
 
     private void Start()
     {
-        PC = this;
+        instance = this;
     }
     public GameObject setProjectile()
     {

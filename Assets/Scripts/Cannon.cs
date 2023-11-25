@@ -6,41 +6,22 @@ public class Cannon : MonoBehaviour
 {
 
     public Transform firePoint;
+    [SerializeField] private int damage;
 
-    public float cadence = 0.5f;
-    private float shooterCounter = 0;
-    private bool mayFire;
 
     private void Start()
     {
-        Boat.boat.willFire += Shoot;
-    }
-
-    void Update()
-    {
-
-        if (!mayFire)
-        {
-            shooterCounter -= Time.deltaTime;
-            if (shooterCounter <= 0)
-            {
-                shooterCounter = cadence;
-                mayFire = true;
-            }
-        }
+        Boat.instance.willFire += Shoot;
+        damage = Boat.instance.damage;
     }
 
     private void Shoot()
     {
-        if (mayFire)
-        {
-            //Instantiate(projectilPrefab, firePoint.position, firePoint.rotation);
-            var projectile = projectileControl.PC.setProjectile();
-            projectile.transform.position = firePoint.position;
-            projectile.transform.rotation = firePoint.rotation;
-            projectile.SetActive(true);
-
-            mayFire = false;
-        }
+        var projectile = projectileControl.instance.setProjectile();
+        if(projectile == null) return;
+        projectile.GetComponent<projectil>().damage = damage;
+        projectile.transform.position = firePoint.position;
+        projectile.transform.rotation = firePoint.rotation;
+        projectile.SetActive(true);
     }
 }
