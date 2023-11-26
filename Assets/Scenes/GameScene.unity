@@ -3029,8 +3029,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  minCameraPos: {x: -7, y: -7.5, z: 0}
-  maxCameraPos: {x: 7, y: 9.5, z: 0}
+  minCameraPos: {x: -8.4, y: -7.5, z: 0}
+  maxCameraPos: {x: 8.4, y: 9.5, z: 0}
 --- !u!4 &730825234
 Transform:
   m_ObjectHideFlags: 0
